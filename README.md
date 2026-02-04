@@ -167,10 +167,7 @@ Analysis outcomes and recommendations will be documented following completion of
 ## Author
 
 **Saurabh Singh**  
-GitHub: [@pm-ssingh](https://github.com/pm-ssingh)
-
-**Academic Context**: CareerFoundry Data Visualization Specialization  
-**Course**: Achievement 2, Exercise 2.2
+Product Manager
 
 ## License
 
