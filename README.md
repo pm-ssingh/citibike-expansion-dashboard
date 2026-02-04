@@ -4,11 +4,43 @@ Strategic data analytics project for optimizing Citi Bike's network expansion th
 
 ## Overview
 
-This analysis leverages 2022 Citi Bike trip data combined with meteorological information to identify optimal locations for new bike-sharing stations in New York City. The project employs statistical analysis and geospatial techniques to maximize infrastructure ROI and improve service coverage.
+This analysis leverages 2022 Citi Bike trip data combined with meteorological information to identify optimal locations for new bike-sharing stations in New York City. The project employs statistical analysis and visualization techniques to maximize infrastructure ROI and improve service coverage.
 
 ### Problem Statement
 
 Current bike shortages at high-traffic stations indicate insufficient supply relative to demand. This project addresses the network expansion challenge by quantifying usage patterns, identifying underserved areas, and providing actionable recommendations for strategic station placement.
+
+## Key Visualizations
+
+### Weather Impact on Ridership
+
+![Temperature and Ridership Correlation](outputs/dual_axis_chart.png)
+
+**Finding:** Strong positive correlation between temperature and bike usage. Ridership increases 3-4x from winter to summer months, indicating significant seasonal demand variation.
+
+**Implication:** New stations must accommodate large capacity swings. Expansion areas should prioritize locations with year-round activity potential or weather-protected routes.
+
+---
+
+### Trip Duration Patterns
+
+![Trip Duration Distribution](outputs/trip_duration_histogram.png)
+
+**Finding:** Modal trip duration of 10-15 minutes indicates primary use for short point-to-point trips. Distribution is right-skewed with most trips under 30 minutes.
+
+**Implication:** Station spacing should support 1-2 km coverage radius. High-turnover areas require greater docking capacity.
+
+---
+
+### User Demographics
+
+![User Demographics](outputs/user_demographics.png)
+
+**Finding:** Member riders significantly outnumber casual users, indicating stable subscription-driven revenue. Classic bikes dominate fleet preferences.
+
+**Implication:** Target expansion areas with membership conversion potential (residential/office districts) for steady ROI. Initial fleet composition can prioritize standard bikes.
+
+---
 
 ## Research Objectives
 
@@ -23,23 +55,28 @@ The analysis addresses four key questions:
 
 ```
 citibike-expansion-dashboard/
-├── citibike_data_collection.ipynb    # Primary analysis notebook
-├── data/                              # Source data files (excluded from VCS)
+├── citibike_data_collection.ipynb       # Exercise 2.2: Data collection & API integration
+├── citibike_visualization_enhanced.ipynb # Exercise 2.3: Matplotlib visualizations
+├── data/                                 # Source data files (excluded from VCS)
 │   ├── JC-202201-citibike-tripdata.csv
-│   ├── JC-202202-citibike-tripdata.csv
-│   └── [10 additional monthly files]
-├── outputs/                           # Generated datasets (excluded from VCS)
+│   └── ... (12 monthly files)
+├── outputs/                              # Generated datasets and visualizations
 │   ├── merged_citibike_weather_2022.csv
-│   └── weather_data_2022.csv
-├── .gitignore                        # Version control exclusions
-└── README.md                         # Project documentation
+│   ├── weather_data_2022.csv
+│   ├── dual_axis_chart.png
+│   ├── trip_duration_histogram.png
+│   └── user_demographics.png
+├── .gitignore                           # Version control exclusions
+└── README.md                            # Project documentation
 ```
 
 ## Technical Stack
 
 - **Python 3.13** - Core programming environment
 - **pandas 3.0.0** - Data manipulation and analysis
+- **matplotlib 3.x** - Data visualization
 - **requests 2.32.5** - HTTP client for API integration
+- **scipy 1.17.0** - Statistical analysis (KDE for histograms)
 - **json** - JSON parsing and serialization
 - **datetime** - Temporal data handling
 - **JupyterLab** - Interactive development environment
@@ -86,7 +123,7 @@ citibike-expansion-dashboard/
 
 3. Install dependencies
    ```bash
-   pip install pandas requests jupyterlab
+   pip install pandas requests matplotlib scipy jupyterlab
    ```
 
 4. Acquire source data
@@ -106,13 +143,14 @@ citibike-expansion-dashboard/
    jupyter lab
    ```
 
-2. Execute analysis notebook
-   - Open `citibike_data_collection.ipynb`
-   - Run cells sequentially from top to bottom
+2. Execute analysis notebooks in order
+   - **Exercise 2.2**: `citibike_data_collection.ipynb` (data collection)
+   - **Exercise 2.3**: `citibike_visualization_enhanced.ipynb` (visualization)
 
 3. Output artifacts
    - `merged_citibike_weather_2022.csv` - Integrated trip and weather dataset
    - `weather_data_2022.csv` - Daily temperature records
+   - Visualization PNG files in `outputs/` directory
 
 ## Methodology
 
@@ -131,6 +169,14 @@ Processing workflow includes:
 3. **Unit Conversion**: Transform NOAA temperature values (stored as tenths of Celsius) to standard Celsius
 4. **Dataset Integration**: Perform left join on date field with merge quality validation
 
+### Visualization Strategy
+
+Created four key visualizations using matplotlib:
+1. **Temperature time series** (procedural approach) - Seasonal baseline
+2. **Dual-axis chart** (object-oriented approach) - Weather-ridership correlation
+3. **Trip duration histogram** with KDE - Usage pattern analysis
+4. **Demographics subplots** (bar + pie charts) - User profiling
+
 ### Quality Assurance
 
 The pipeline implements multiple validation checkpoints:
@@ -139,35 +185,64 @@ The pipeline implements multiple validation checkpoints:
 - Shape validation ensures complete record processing
 - Statistical summary confirms data distribution expectations
 
-## Implementation Details
+## Key Findings
 
-### Efficiency Considerations
+### 1. Weather Sensitivity (Critical)
+- **Observation**: Strong positive correlation between temperature and ridership
+- **Magnitude**: 3-4x demand variation between summer peak and winter low
+- **Implication**: New stations must handle large seasonal capacity swings
+- **Risk Factor**: Weather dependency creates revenue volatility
 
-- **Generator Pattern**: Reduces memory footprint by processing files sequentially rather than loading all into memory
-- **List Comprehension**: Provides concise, optimized iteration for data extraction
-- **Batch Processing**: Consolidates 12 monthly files into single dataset for simplified analysis
+### 2. Trip Patterns (Important)
+- **Observation**: Modal duration 10-15 minutes, primarily short-distance trips
+- **Implication**: Station spacing should support 1-2 km coverage radius
+- **Infrastructure Need**: High turnover areas require greater docking capacity
+- **Network Effect**: Dense station network needed for utility
 
-### API Integration
+### 3. User Profile (Opportunity)
+- **Observation**: Member-dominated user base, classic bike preference
+- **Implication**: Expansion areas with membership potential offer best ROI
+- **Infrastructure Cost**: Lower initial investment (standard bikes sufficient)
+- **Revenue Stability**: Subscription model provides predictable cash flow
 
-- **Authentication**: Token-based authentication via HTTP headers
-- **Rate Limiting**: Respects NOAA API constraints (1000 record limit per request)
-- **Error Handling**: Validates API response status before data processing
+## Expansion Strategy Recommendations
 
-## Results and Insights
+### High-Priority Criteria for New Stations
+1. Within 10-15 minute ride of high-traffic destinations
+2. Areas with potential for membership conversion (residential/office)
+3. Some weather protection (covered routes, indoor destinations)
+4. Sufficient space for seasonal capacity scaling
 
-Analysis outcomes and recommendations will be documented following completion of visualization phase.
+### Infrastructure Requirements
+- 3-4x docking capacity variation for summer vs. winter
+- Initially standard bikes, add electric based on topography
+- Real-time availability monitoring (given tight duration patterns)
+- Flexible capacity management for seasonal demand
+
+### Target Demographics
+- Commuter-focused areas (office districts, transit hubs)
+- Residential neighborhoods with membership potential
+- Areas within 1-2 km of existing stations (network density)
+- Locations with year-round activity (reduced weather sensitivity)
 
 ## Future Work
 
-1. Develop interactive visualization dashboard
-2. Implement machine learning models for demand forecasting
-3. Conduct spatial analysis for optimal station placement
-4. Generate executive summary with actionable recommendations
+1. **Geographic Analysis**: Map current station locations vs. demand heat maps
+2. **Route Analysis**: Identify most popular origin-destination pairs
+3. **Gap Analysis**: Find underserved areas meeting expansion criteria
+4. **Financial Modeling**: Project ROI for candidate locations
+5. **Machine Learning**: Predictive models for demand forecasting
+6. **Interactive Dashboard**: Real-time visualization of expansion opportunities
 
 ## Author
 
 **Saurabh Singh**  
-Product Manager
+GitHub: [@pm-ssingh](https://github.com/pm-ssingh)
+
+**Academic Context**: CareerFoundry Data Visualization Specialization  
+**Completed Exercises**: 
+- Achievement 2, Exercise 2.2 (Data Collection & API Integration)
+- Achievement 2, Exercise 2.3 (Matplotlib Visualization)
 
 ## License
 
@@ -186,5 +261,5 @@ For inquiries regarding this analysis, please submit an issue through the GitHub
 ---
 
 **Last Updated**: February 2026  
-**Version**: 1.0.0  
-**Status**: Active Development
+**Version**: 2.0.0  
+**Status**: Active Development - Visualization Phase Complete
