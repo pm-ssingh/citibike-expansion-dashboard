@@ -5,3 +5,4 @@ outputs/*.csv
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
+.virtual_documents/
