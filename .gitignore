@@ -1,0 +1,6 @@
+citibike_env/
+data/*.csv
+outputs/*.csv
+.DS_Store
+__pycache__/
+*.pyc
