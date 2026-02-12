@@ -9,3 +9,4 @@ __pycache__/
 outputs/*.html
 .ipynb_checkpoints/
 __pycache__/
+.gitignore.save
