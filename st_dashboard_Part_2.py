@@ -5,6 +5,7 @@ from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 from datetime import datetime as dt
 from PIL import Image
+from numerize import numerize
 
 ####################### PAGE CONFIGURATION #######################
 st.set_page_config(page_title='Citi Bike NYC Strategy Dashboard', layout='wide')
@@ -121,7 +122,7 @@ elif page == "Most Popular Stations":
     
     # Total rides metric
     total_rides = float(df1['value'].sum())
-    st.metric(label='Total Bike Rides', value=f"{total_rides:,.0f}")
+    st.metric(label='Total Bike Rides', value=numerize(total_rides))
     
     # Create bar chart
     df_groupby_bar = df1.groupby('start_station_name', as_index=False).agg({'value': 'sum'})
