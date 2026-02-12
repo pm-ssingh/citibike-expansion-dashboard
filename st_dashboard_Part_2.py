@@ -122,7 +122,7 @@ elif page == "Most Popular Stations":
     
     # Total rides metric
     total_rides = float(df1['value'].sum())
-    st.metric(label='Total Bike Rides', value=numerize(total_rides))
+    st.metric(label='Total Bike Rides', value=f"{total_rides:,.0f}")
     
     # Create bar chart
     df_groupby_bar = df1.groupby('start_station_name', as_index=False).agg({'value': 'sum'})
