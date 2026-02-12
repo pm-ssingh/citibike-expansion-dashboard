@@ -1,0 +1,11 @@
+{
+  "total_trips": 2766362037,
+  "unique_routes": 16829370,
+  "unique_stations": 299,
+  "high_volume_routes": 126598,
+  "top_route": {
+    "start": "Hoboken Terminal - Hudson St & Hudson Pl",
+    "end": "Hoboken Ave at Monmouth St",
+    "trips": 4933
+  }
+}

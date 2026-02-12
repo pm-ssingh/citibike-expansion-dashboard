@@ -6,6 +6,8 @@ __pycache__/
 *.pyc
 .ipynb_checkpoints/
 .virtual_documents/
-outputs/*.html
-.ipynb_checkpoints/
-__pycache__/
+^X
+clear
+exit
+
+
