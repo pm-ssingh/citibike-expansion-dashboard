@@ -7,6 +7,7 @@ __pycache__/
 .ipynb_checkpoints/
 .virtual_documents/
 outputs/*.html
+!outputs/citibike_trips_map.html
 .ipynb_checkpoints/
 __pycache__/
 .gitignore.save
